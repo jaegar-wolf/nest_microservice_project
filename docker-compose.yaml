@@ -1,12 +1,12 @@
 services:
-  reservation:
+  reservations:
     build:
       context: .
-      dockerfile: ./apps/reservation/Dockerfile
+      dockerfile: ./apps/reservations/Dockerfile
       target: development
-    command: pnpm run start:dev reservation
+    command: pnpm run start:dev reservations
     env_file:
-      - ./apps/reservation/.env
+      - ./apps/reservations/.env
     ports:
       - '3000:3000'
     volumes:
