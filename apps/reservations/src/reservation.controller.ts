@@ -13,7 +13,7 @@ import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationService } from './reservation.service';
 import { CurrentUser, JwtAuthGuard, UserDto } from '@app/common';
 
-@Controller('reservation')
+@Controller('reservations')
 export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
 
