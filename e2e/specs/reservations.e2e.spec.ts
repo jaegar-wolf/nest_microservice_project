@@ -26,32 +26,50 @@ describe('Reservations', () => {
     jwt = await response.text();
   });
 
-  test('Create', async () => {
-    const response = await fetch('http://reservations:3000/reservations', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authentication: jwt,
-      },
-      body: JSON.stringify({
-        startDate: '08-19-2023',
-        endDate: '09-01-2023',
-        placeId: '123',
-        invoiceId: '123',
-        charge: {
-          amount: 40,
-          card: {
-            cvc: '314',
-            exp_month: 8,
-            exp_year: 2024,
-            number: '4242424242424242',
-          },
-        },
-      }),
-    });
+  test('Create & Get', async () => {
+    const createdReservation = await createReservation();
 
-    expect(response.ok).toBeTruthy();
-    const reservations = await response.json();
-    console.log(reservations);
+    const responseGet = await fetch(
+      `http://reservations:3000/reservations/${createdReservation._id}`,
+      {
+        headers: {
+          Authentication: jwt,
+        },
+      },
+    );
+
+    const reservation = await responseGet.json();
+    expect(createdReservation).toEqual(reservation);
   });
+
+  const createReservation = async () => {
+    const responseCreate = await fetch(
+      'http://reservations:3000/reservations',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authentication: jwt,
+        },
+        body: JSON.stringify({
+          startDate: '08-19-2023',
+          endDate: '09-01-2023',
+          placeId: '123',
+          invoiceId: '123',
+          charge: {
+            amount: 40,
+            card: {
+              cvc: '314',
+              exp_month: 8,
+              exp_year: 2024,
+              number: '4242424242424242',
+            },
+          },
+        }),
+      },
+    );
+
+    expect(responseCreate.ok).toBeTruthy();
+    return responseCreate.json();
+  };
 });
