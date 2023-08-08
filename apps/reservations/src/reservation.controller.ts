@@ -11,7 +11,7 @@ import {
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationService } from './reservation.service';
-import { CurrentUser, JwtAuthGuard, Roles, UserDto } from '@app/common';
+import { CurrentUser, JwtAuthGuard, Roles, User } from '@app/common';
 
 @Controller('reservations')
 export class ReservationController {
@@ -21,7 +21,7 @@ export class ReservationController {
   @Post()
   async create(
     @Body() createReservationDto: CreateReservationDto,
-    @CurrentUser() user: UserDto,
+    @CurrentUser() user: User,
   ) {
     return await this.reservationService.create(createReservationDto, user);
   }
@@ -35,7 +35,7 @@ export class ReservationController {
   @Get(':id')
   @UseGuards(JwtAuthGuard)
   async findOne(@Param('id') id: string) {
-    return this.reservationService.findOne(id);
+    return this.reservationService.findOne(+id);
   }
 
   @Patch(':id')
@@ -44,13 +44,13 @@ export class ReservationController {
     @Param('id') id: string,
     @Body() updateReservationDto: UpdateReservationDto,
   ) {
-    return this.reservationService.update(id, updateReservationDto);
+    return this.reservationService.update(+id, updateReservationDto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   @Roles('Admin')
   async remove(@Param('id') id: string) {
-    return this.reservationService.remove(id);
+    return this.reservationService.remove(+id);
   }
 }
