@@ -6,7 +6,6 @@ import * as Joi from 'joi';
 import {
   LoggerModule,
   NOTIFICATIONS_PACKAGE_NAME,
-  NOTIFICATIONS_SERVICE,
   NOTIFICATIONS_SERVICE_NAME,
 } from '@app/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
