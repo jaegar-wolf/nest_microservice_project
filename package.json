@@ -20,6 +20,8 @@
     "test:e2e": "docker-compose --project-directory ./e2e up e2e"
   },
   "dependencies": {
+    "@grpc/grpc-js": "^1.9.0",
+    "@grpc/proto-loader": "^0.7.8",
     "@nestjs/common": "^9.4.2",
     "@nestjs/config": "^2.3.2",
     "@nestjs/core": "^9.4.2",
@@ -37,7 +39,8 @@
     "pino-http": "^8.3.3",
     "pino-pretty": "^10.0.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "ts-proto": "^1.156.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.5.0",
